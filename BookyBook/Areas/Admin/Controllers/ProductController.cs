@@ -4,16 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using DataAccess.Repository;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Models;
-using Utility;
 
 namespace BookyBook.Areas.Admin.Controllers
 {
-    [Area("Admin")]
-    public class CoverTypeController : Controller
+    public class ProductController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;
-        public CoverTypeController(IUnitOfWork unitOfWork)
+
+        public ProductController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
@@ -21,57 +21,59 @@ namespace BookyBook.Areas.Admin.Controllers
         {
             return View();
         }
+
         public IActionResult Upsert(int? id)
         {
-            CoverType coverType = new CoverType();
+            Product product = new Product();
             if (id == null)
             {
-                return View(coverType);
+                return View(product);
             }
-           coverType = _unitOfWork.CoverType.Get(id.GetValueOrDefault());
-            if(coverType == null)
+            product = _unitOfWork.Product.Get(id.GetValueOrDefault());
+            if (product == null)
             {
                 return NotFound();
             }
-            return View(coverType);
+            return View(product);
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Upsert(CoverType coverType)
+        public IActionResult Upsert(Product product)
         {
             if (ModelState.IsValid)
             {
-                if (coverType.Id == 0)
+                if (product.Id != 0)
                 {
-                    _unitOfWork.CoverType.Add(coverType);
+                    _unitOfWork.Product.Add(product);
                 }
                 else
                 {
-                    _unitOfWork.CoverType.Update(coverType);
+                    _unitOfWork.Product.Update(product);
                 }
                 _unitOfWork.Save();
                 return RedirectToAction(nameof(Index));
             }
-            return View(coverType);
+            return View(product);
         }
-        #region
+
+        #region API Calls
         [HttpGet]
         public IActionResult GetAll()
         {
-            var objdata = _unitOfWork.SP_Call.List<CoverType>(SD.Proc_CoverType_GetAll);
-            return Json(new { data = objdata });
+            var objData = _unitOfWork.Product.GetAll();
+            return Json(new { data = objData });
         }
         [HttpDelete]
         public IActionResult Delete(int id)
         {
-            var dataObj = _unitOfWork.CoverType.Get(id);
-            if (dataObj == null)
+            var objFrmDb = _unitOfWork.Product.Get(id);
+            if (objFrmDb == null)
             {
-                return Json(new { success = false, message = "Erro while deleting" });
+                return Json(new { success = false, message = "Failed to delete product" });
             }
-            _unitOfWork.CoverType.Remove(id);
+            _unitOfWork.Product.Remove(id);
             _unitOfWork.Save();
-            return Json(new { success = true, message = "Deleted successfully" });
+            return Json(new { success = true, message = "Product deleted successfully" });
         }
         #endregion
     }
