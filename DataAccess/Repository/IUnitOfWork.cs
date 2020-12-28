@@ -11,6 +11,7 @@ namespace DataAccess.Repository
         ICoverTypeRepository CoverType { get; }
         IProductRepository Product { get; }
         ISP_Call SP_Call { get; }
+        ICompanyRepository Company { get; set; }
         void Save();
     }
 }

@@ -1,4 +1,4 @@
-﻿let dataTable;
+﻿var dataTable;
 
 $(document).ready(function () {
     loadDataTable();
@@ -17,10 +17,10 @@ const loadDataTable = () => {
                     return
                     `
                     <div class="text-center">
-                 <a href="/Admin/Category/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                 <a href="/Admin/Covertype/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                 <i class="fas fa-edit"></i>
                   </a>
-                <a onclick="Delete("/Admin/Category/Delete/${data}")" class="btn btn-danger text-white">
+                <a onclick="Delete("/Admin/Covertype/Delete/${data}")" class="btn btn-danger text-white">
                  <i class="fas fa-trash"></i>
              </a>
 
@@ -38,7 +38,7 @@ const Delete = (url) => {
         icon: "warning",
         buttons: true,
         dangerMode: true
-    }).then(willDelete){
+    }).then(willDelete)
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
@@ -55,4 +55,3 @@ const Delete = (url) => {
             })
         }
     }
-}
