@@ -54,11 +54,12 @@ namespace BookyBook.Areas.Admin.Controllers
             }
             return View(coverType);
         }
-        #region
+        #region Get API Calls
         [HttpGet]
         public IActionResult GetAll()
         {
-            var objdata = _unitOfWork.SP_Call.List<CoverType>(SD.Proc_CoverType_GetAll);
+            //var objdata = _unitOfWork.SP_Call.List<CoverType>(SD.Proc_CoverType_GetAll);
+            var objdata = _unitOfWork.CoverType.GetAll();
             return Json(new { data = objdata });
         }
         [HttpDelete]

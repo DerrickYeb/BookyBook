@@ -7,7 +7,7 @@ $(document).ready(function () {
 const loadDataTable = () => {
     dataTable = $('#tblData').DataTable({
         "ajax": {
-            "url":"/Admin/Product/GetAll"
+            "url": "/Admin/Product/GetAll"
         },
         "columns": [
             { "data": "title", "width": "15%" },
@@ -23,13 +23,13 @@ const loadDataTable = () => {
                  <a href="/Admin/Product/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                 <i class="fas fa-edit"></i>
                   </a>
-                <a onclick="Delete("/Admin/Product/Delete/${data}")" class="btn btn-danger text-white">
+                <a onclick=Delete("/Admin/Product/Delete/${data}") class="btn btn-danger text-white">
                  <i class="fas fa-trash"></i>
              </a>
 
             </div>
-                            `;
-                },"width":"40%"
+                    `;
+                },"width": "40%"
             }
         ]
     })
@@ -41,7 +41,7 @@ const Delete = (url) => {
         icon: "warning",
         buttons: true,
         dangerMode: true
-    }).then(willDelete)
+    }).then((willDelete) => {
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
@@ -50,11 +50,11 @@ const Delete = (url) => {
                     if (data.success) {
                         toastr.success(data.message);
                         dataTable.ajax.reload();
-                    }
-                    else {
+                    } else {
                         toastr.error(data.message);
                     }
                 }
             })
         }
-    }
+    });
+}

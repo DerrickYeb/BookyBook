@@ -13,6 +13,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using BookyBook.DataAccess.Data;
 using BookyBook.Extensions;
+using Microsoft.AspNetCore.Identity.UI.Services;
+using Utility;
 
 namespace BookyBook
 {
@@ -31,8 +33,9 @@ namespace BookyBook
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddIdentity<IdentityUser, IdentityRole>().AddDefaultTokenProviders()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddSingleton<IEmailSender, EmailSender>();
             services.ConfigureRepository();
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();

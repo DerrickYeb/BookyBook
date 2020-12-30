@@ -23,6 +23,7 @@ namespace DataAccess.Repository
             if (objFrmDb != null)
             {
                 objFrmDb.Name = coverType.Name;
+                _context.SaveChanges();
             }
         }
     }

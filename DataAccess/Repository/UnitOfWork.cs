@@ -18,12 +18,14 @@ namespace DataAccess.Repository
             Product = new ProductRepository(_context);
             SP_Call = new SP_Call(_context);
             Company = new CompanyRepository(_context);
+            User = new UserRepository(_context);
         }
         public ICategoryRepository Category { get; private set; }
         public ICoverTypeRepository CoverType { get; private set; }
         public IProductRepository Product { get; private set; }
         public ISP_Call SP_Call { get; private set; }
-        public ICompanyRepository Company { get; set; }
+        public ICompanyRepository Company { get; private set; }
+        public IUserRepository User { get; private set; }
         public void Dispose()
         {
             _context.Dispose();

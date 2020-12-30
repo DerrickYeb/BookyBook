@@ -1,4 +1,5 @@
-﻿var dataTable;
+﻿
+var dataTable;
 
 $(document).ready(function () {
     loadDataTable();
@@ -19,7 +20,7 @@ const loadDataTable = () => {
                  <a href="/Admin/Category/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                 <i class="fas fa-edit"></i>
                   </a>
-                <a onclick="Delete("/Admin/Category/Delete/${data}")" class="btn btn-danger text-white">
+                <a onclick=Delete("/Admin/Category/Delete/${data}") class="btn btn-danger text-white">
                  <i class="fas fa-trash"></i>
              </a>
 
@@ -30,6 +31,7 @@ const loadDataTable = () => {
         ]
     })
 }
+
 const Delete = (url) => {
     swal({
         title: "Are you sure want to delete?",
@@ -37,7 +39,7 @@ const Delete = (url) => {
         icon: "warning",
         buttons: true,
         dangerMode: true
-    }).then(willDelete)
+    }).then((willDelete) => {
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
@@ -46,11 +48,11 @@ const Delete = (url) => {
                     if (data.success) {
                         toastr.success(data.message);
                         dataTable.ajax.reload();
-                    }
-                    else {
+                    } else {
                         toastr.error(data.message);
                     }
                 }
             })
         }
-    }
+    });
+}

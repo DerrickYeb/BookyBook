@@ -18,17 +18,8 @@ namespace DataAccess.Repository
         }
         public void Update(Company company)
         {
-            var objData = _context.Companies.FirstOrDefault(o => o.Id == company.Id);
-            if (objData != null)
-            {
-                objData.Name = company.Name;
-                objData.StreetAddress = company.StreetAddress;
-                objData.City = company.City;
-                objData.State = company.State;
-                objData.PostalCode = company.PostalCode;
-                objData.PhoneNumber = company.PhoneNumber;
-                objData.IsAuthorizedCompany = company.IsAuthorizedCompany;
-            }
+
+            _context.Update(company);
         }
     }
 }

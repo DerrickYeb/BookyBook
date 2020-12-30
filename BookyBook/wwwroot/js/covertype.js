@@ -5,28 +5,27 @@ $(document).ready(function () {
 });
 
 const loadDataTable = () => {
-    dataTable = $('tblData').DataTable({
-        "ajax":{
-            "url":"/Admin/CoverType/GetAll"
+    dataTable = $('#tblData').DataTable({
+        "ajax": {
+            "url": "/Admin/CoverType/GetAll"
         },
         "columns": [
             { "data": "name", "width": "60%" },
             {
                 "data": "id",
                 "render": function (data) {
-                    return
-                    `
-                    <div class="text-center">
-                 <a href="/Admin/Covertype/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
+                    return `
+                <div class="text-center">
+                 <a href="/Admin/CoverType/Upsert/${data}" class="btn btn-success text-white" style="cursor:pointer">
                 <i class="fas fa-edit"></i>
                   </a>
-                <a onclick="Delete("/Admin/Covertype/Delete/${data}")" class="btn btn-danger text-white">
+                <a onclick=Delete("/Admin/CoverType/Delete/${data}") class="btn btn-danger text-white">
                  <i class="fas fa-trash"></i>
              </a>
 
             </div>
-                    `
-                },"width":"40%"
+                            `;
+                }, "width": "40%"
             }
         ]
     })
@@ -38,7 +37,7 @@ const Delete = (url) => {
         icon: "warning",
         buttons: true,
         dangerMode: true
-    }).then(willDelete)
+    }).then((willDelete) => {
         if (willDelete) {
             $.ajax({
                 type: "DELETE",
@@ -47,11 +46,11 @@ const Delete = (url) => {
                     if (data.success) {
                         toastr.success(data.message);
                         dataTable.ajax.reload();
-                    }
-                    else {
+                    } else {
                         toastr.error(data.message);
                     }
                 }
             })
         }
-    }
+    });
+}
