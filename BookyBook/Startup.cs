@@ -40,6 +40,21 @@ namespace BookyBook
             services.AddControllersWithViews().AddRazorRuntimeCompilation();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.ConfigureApplicationCookie(option =>
+            {
+                option.LoginPath = $"/Identity/Account/Login";
+                option.LogoutPath = $"/Identity/Account/Logout";
+                option.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+            //Facebook Authentication here
+            //Google Authentication here
+            //Microsoft Authentication here
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,7 +75,7 @@ namespace BookyBook
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseSession();
             app.UseAuthentication();
             app.UseAuthorization();
 

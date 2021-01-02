@@ -13,6 +13,9 @@ namespace DataAccess.Repository
         ISP_Call SP_Call { get; }
         ICompanyRepository Company { get;}
         IUserRepository User { get;}
+        IShoppingCartRepository ShoppingCart { get; }
+        IOrderHeaderRepository OrderHeader { get; }
+        IOrderDetailsRepository OrderDetails { get; }
         void Save();
     }
 }

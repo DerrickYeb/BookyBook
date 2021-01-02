@@ -6,10 +6,13 @@ using System.Threading.Tasks;
 using DataAccess.Repository;
 using Models;
 using Microsoft.AspNetCore.Mvc;
+using Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BookyBook.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = SD.Role_Admin)]
     public class CategoryController : Controller
     {
         private readonly IUnitOfWork _unitOfWork;

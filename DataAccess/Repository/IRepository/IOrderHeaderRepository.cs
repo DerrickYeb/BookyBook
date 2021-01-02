@@ -5,8 +5,8 @@ using System.Text;
 
 namespace DataAccess.Repository.IRepository
 {
-    public interface IUserRepository:IRepository<ApplicationUser>
+     public interface IOrderHeaderRepository:IRepository<OrderHeader>
     {
-        void Update(ApplicationUser user);
+        void Update(OrderHeader orderHeader);
     }
 }

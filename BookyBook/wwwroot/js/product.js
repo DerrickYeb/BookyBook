@@ -15,6 +15,7 @@ const loadDataTable = () => {
             { "data": "author", "width": "15%" },
             { "data": "price", "width": "15%" },
             { "data": "category.name", "width": "15%" },
+            { "data": "description", "width": "15%" },
             {
                 "data": "id",
                 "render": function (data) {
